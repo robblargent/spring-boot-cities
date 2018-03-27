@@ -32,7 +32,7 @@ public class CitiesWebServiceInfoCreator extends CloudFoundryServiceInfoCreator<
     }
 
     @SuppressWarnings("unchecked")
-    private Map<String, Object> getCredentials(Map<String, Object> serviceData) {
+    protected Map<String, Object> getCredentials(Map<String, Object> serviceData) {
         return (Map<String, Object>) serviceData.get("credentials");
     }
 }

@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        springBootVersion = '1.1.6.RELEASE'
-        springCloudVersion = '1.1.0.RELEASE'
+        springBootVersion = '1.5.10.RELEASE'
+        springCloudVersion = '1.1.1.RELEASE'
     }
 
     repositories {
@@ -22,8 +22,8 @@ subprojects {
 
     version = '0.0.1-SNAPSHOT'
 
-    sourceCompatibility = 1.7
-    targetCompatibility = 1.7
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
     repositories {
         mavenCentral()
@@ -31,7 +31,7 @@ subprojects {
 }
 
 project(':cities-service') {
-    apply plugin: 'spring-boot'
+    apply plugin: 'org.springframework.boot'
 
     jar {
         baseName = 'cities-service'
@@ -49,11 +49,12 @@ project(':cities-service') {
 
         // JDBC drivers
         runtime("org.hsqldb:hsqldb")
-        runtime("mysql:mysql-connector-java:5.1.25")
+        runtime("mysql:mysql-connector-java:8.0.8-dmr")
 
         testCompile("junit:junit")
 
-        versionManagement 'io.spring.platform:platform-versions:1.0.2.RELEASE@properties'
+        // RWL : The versionManagement method no longer seems to exist
+        // versionManagement 'io.spring.platform:platform-versions:1.1.5.RELEASE@properties'
     }
 }
 
@@ -65,14 +66,14 @@ project(':cities-client') {
 
     dependencies {
         // Spring
-        compile "org.springframework.hateoas:spring-hateoas:0.16.0.RELEASE"
+        compile "org.springframework.hateoas:spring-hateoas:0.24.0.RELEASE"
         compile "org.springframework.cloud:spring-cloud-spring-service-connector:${springCloudVersion}"
         compile "org.springframework.cloud:spring-cloud-cloudfoundry-connector:${springCloudVersion}"
         compile "org.springframework.cloud:spring-cloud-localconfig-connector:${springCloudVersion}"
 
         // Feign
-        compile 'com.netflix.feign:feign-core:6.1.3'
-        compile 'com.netflix.feign:feign-jackson:6.1.3'
+        compile 'com.netflix.feign:feign-core:8.18.0'
+        compile 'com.netflix.feign:feign-jackson:8.18.0'
     }
 }
 
@@ -87,7 +88,7 @@ project(':cities-ui') {
         }
     }   
     
-    apply plugin: 'spring-boot'
+    apply plugin: 'org.springframework.boot'
 
     jar {
         baseName = 'cities-ui'
@@ -116,10 +117,11 @@ project(':cities-ui') {
 
         testCompile "org.springframework.boot:spring-boot-starter-test"
 
-        versionManagement 'io.spring.platform:platform-versions:1.0.2.RELEASE@properties'
+// RWL : The versionManagement method no longer seems to exist
+        // versionManagement 'io.spring.platform:platform-versions:1.0.2.RELEASE@properties'
     }
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.12'
+    gradleVersion = '4.6'
 }
